@@ -25,7 +25,7 @@ SECRET_KEY = 'w+dqr(2e29v#2_e#%!vf82#=08kqralnraq%if^@%^%j#i7li!'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = [".run.goorm.io"]
+ALLOWED_HOSTS = ["*"]
 
 
 # Application definition
@@ -37,6 +37,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'finance.apps.FinanceConfig'
 ]
 
 MIDDLEWARE = [
