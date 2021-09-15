@@ -35,7 +35,7 @@ def WeeklyEarningRate(data):
 def DeclineFromHighest(data):
     today = data['Close'][-1]
     price_max = 0
-    for i in data['High'][:-53]:
+    for i in data['High'][-366:-1]:
         if price_max < i:
             price_max = i
     diff = round(today-price_max, 2)

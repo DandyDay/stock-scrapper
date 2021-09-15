@@ -12,10 +12,10 @@
       <body>
           {% if stock_category_list %}
           <div class="header_container">
-              <p id="title">Weekly Earning Rate</p>
-              <p id="date">{{ today }}</p>
+              <span id="title">Weekly Earning Rate</span>
+              <span id="date">{{ today }}</span>
           </div>
-          <div class="main_container" style="width:1000px;">
+          <div class="main_container">
           {% for category in stock_category_list %}
               <section class="data_container" id="{{category.category_name}}">
                   <div class="title">{{category.category_name_display}}</div>
