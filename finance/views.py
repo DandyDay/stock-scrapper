@@ -4,8 +4,8 @@ import yfinance as yf
 
 from .models import StockCategory
 
+YTD_dict_percent = {}
 YTD_dict = {}
-
 
 def YTD(data):
     today = data[-1]
@@ -37,7 +37,8 @@ def DeclineFromHighest(data):
 for category in StockCategory.objects.all():
     for stock in category.stock_set.all():
         data = yf.download(stock.stock_quote, start='2020-01-01')
-        YTD_dict[stock.stock_quote] = YTD(data['Close'])[1]
+        YTD_dict[stock.stock_quote], \
+            YTD_dict_percent[stock.stock_quote] = YTD(data['Close'])
         stock.WER = WeeklyEarningRate(data['Close'])
         stock.DFH = DeclineFromHighest(data['High'])
 
@@ -45,5 +46,5 @@ for category in StockCategory.objects.all():
 def index(request):
     stock_category_list = StockCategory.objects.all()
     context = {'stock_category_list': stock_category_list,
-               'YTD_dict': YTD_dict}
+               'YTD_dict_percent': YTD_dict_percent}
     return render(request, 'finance/index.html', context)

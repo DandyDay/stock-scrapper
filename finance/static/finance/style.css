@@ -1,52 +1,75 @@
 body{
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
-  background-color: #E5E1E6;
-  display: flex;
-  align-items: center;
-  justify-content: center;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+    background-color: #E5E1E6;
+    height:100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 @media screen and (max-width: 1090px){
-  .main_container{
-    width: 100%;
-    display: grid;
-    grid-template-columns: 1fr 1fr 1fr;
-  }
+    .main_container{
+        width: 100%;
+        display: grid;
+        grid-template-columns: 1fr 1fr 1fr;
+    }
 }
 
 .main_container{
-  width: 70%;
-  display: grid;
-  grid-template-columns: 1fr 1fr 1fr;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
 }
 
 .data_container{
-  display: flex;
-  flex-direction: column;
-  margin: 5px;
-  padding: 5px;
+    display: flex;
+    flex-direction: column;
+    margin: 5px;
+    padding: 5px;
 }
 
 .title{
-  font-weight: bold;
-  padding-bottom: 3px;
-  margin-bottom: 3px;
-  border-bottom: black solid 2px
+    font-weight: bold;
+    padding-bottom: 3px;
+    margin-bottom: 3px;
+    border-bottom: black solid 2px
 }
 
 .stock{
-  display: flex;
-  justify-content: space-between;
+    display: flex;
+    justify-content: space-between;
+}
+
+.blankbox{
+    width:50%;
+    height:100%;
+}
+
+.plusblank .minusblank{
+    height: 100%;
 }
 
 .minus{
-  width:50%;
-  height:100%;
-  background: linear-gradient(to right, transparent, red 50%);
+    width:50%;
+    height:100%;
+    display: flex;
 }
 
 .plus{
-  width:50%;
-  height:100%;
-  background: linear-gradient(to left, transparent, green 50%);
+    width:50%;
+    height:100%;
+    display: flex;
+}
+
+.plusgraph{
+    height:100%;
+    background: linear-gradient(to left, transparent, green 50%);
+    opacity: 70%;
+    border: 0.1px solid green;
+}
+
+.minusgraph{
+    height:100%;
+    background: linear-gradient(to right, transparent, red 50%);
+    opacity: 70%;
+    border: 0.1px solid red;
 }
