@@ -1,9 +1,36 @@
-{% if stock_list %}
-    <ul>
-    {% for stock in stock_list %}
-        <li>{{ stock }}</li>
-    {% endfor %}
-    </ul>
-{% else %}
-    <p>No stocks are available.</p>
-{% endif %}
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width">
+        <title>Finance</title>
+        {% load static %}
+        <link rel="stylesheet" type="text/css" href="{% static 'finance/style.css' %}">
+      </head>
+      <body>
+          {% if stock_category_list %}
+          <div class="main_container">
+          {% for category in stock_category_list %}
+              <section class="data_container" id="{{category.category_name}}">
+                  <div class="title">{{category.category_name_display}}</div>
+                  {% for stock in category.stock_set.all %}
+                  <div class="stock">
+                      <span> {{stock.stock_name}} </span>
+                      <div style="position:relative;width:40%;text-align:right;"> 
+                          <!--<div style="position:absolute;width:100%;height:100%;z-index:-1;display:flex;">
+                              <div class="minus"></div>
+                              <div class="plus"></div>
+                          </div>-->
+                          {% load custom_filters %}
+                          <span style="z-index:1;">{{YTD_dict|reportkey:stock.stock_quote}}%</span> 
+                      </div>
+                  </div>
+                  {% endfor %}
+              </section>
+          {% endfor %}
+          {% else %}
+              <p>No stocks are available.</p>
+          {% endif %}
+          </div>
+    </body>
+</html>

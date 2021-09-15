@@ -2,19 +2,16 @@ from django.shortcuts import render
 
 import yfinance as yf
 
-stock_list = ['AAPL', 'AMZN', 'FB', 'NFLX', 'NVDA', 'GOOG', '005930.KS']
-stock_list_display = ['Apple Inc.', 'Amazon', 'Facebook', 'Netflix',
-                      'NVIDIA', 'ALPHABET', 'Samsung Electronics Co., Ltd.']
-stock_YTD = []
-stock_WER = []        # WeeklyEarningRate
-stock_DFH = []        # DeclineFromHighest
+from .models import StockCategory
+
+YTD_dict = {}
 
 
 def YTD(data):
     today = data[-1]
-    firstday = data['2021-01-01']
+    firstday = data['2021-01-04']
     diff = round(today-firstday, 2)
-    percent = diff/firstday*100
+    percent = round(diff/firstday*100, 1)
     return (diff, percent)
 
 
@@ -22,7 +19,7 @@ def WeeklyEarningRate(data):
     today = data[-1]
     firstday = data[-8]
     diff = round(today-firstday, 2)
-    percent = diff/firstday*100
+    percent = round(diff/firstday*100, 1)
     return (diff, percent)
 
 
@@ -33,23 +30,20 @@ def DeclineFromHighest(data):
         if price_max < i:
             price_max = i
     diff = round(today-price_max, 2)
-    percent = diff/price_max*100
+    percent = round(diff/price_max*100, 1)
     return (diff, percent)
 
 
-for quote in stock_list:
-    tmp = yf.download(quote, start='2020-01-01')
-    data = tmp['Close']
-    data_High = tmp['High']
-    stock_YTD.append(YTD(data))
-    stock_DFH.append(DeclineFromHighest(data_High))
-    stock_WER.append(WeeklyEarningRate(data))
+for category in StockCategory.objects.all():
+    for stock in category.stock_set.all():
+        data = yf.download(stock.stock_quote, start='2020-01-01')
+        YTD_dict[stock.stock_quote] = YTD(data['Close'])[1]
+        stock.WER = WeeklyEarningRate(data['Close'])
+        stock.DFH = DeclineFromHighest(data['High'])
 
 
 def index(request):
-    context = {'stock_list': stock_list,
-               'stock_list_display': stock_list_display,
-               'stock_YTD': stock_YTD,
-               'stock_DFH': stock_DFH,
-               'stock_WER': stock_WER}
+    stock_category_list = StockCategory.objects.all()
+    context = {'stock_category_list': stock_category_list,
+               'YTD_dict': YTD_dict}
     return render(request, 'finance/index.html', context)
