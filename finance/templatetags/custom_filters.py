@@ -21,3 +21,13 @@ def hundredminus(data):
 @register.filter('twice')
 def twice(data):
     return data*2
+
+
+@register.filter('fordfr')
+def fordfr(data):
+    return abs(10*data)
+
+
+@register.filter('forwer')
+def forwer(data):
+    return abs(40*data)

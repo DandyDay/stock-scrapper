@@ -5,4 +5,7 @@ from . import views
 app_name = 'finance'
 urlpatterns = [
     path('', views.index),
+    path('ytd/', views.ytd),
+    path('wer/', views.wer),
+    path('dfh/', views.dfh),
 ]

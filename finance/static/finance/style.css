@@ -3,8 +3,26 @@ body{
     background-color: #E5E1E6;
     height:100%;
     display: flex;
+    flex-direction: column;
     align-items: center;
     justify-content: center;
+}
+
+.header_container{
+    display: flex;
+    width: 900px;
+    justify-content: space-between;
+    align-items: center;
+}
+
+#title{
+    font-size: 2em;
+    font-weight: bold;
+    text-decoration: underline;
+}
+
+#date{
+    
 }
 
 @media screen and (max-width: 1090px){
